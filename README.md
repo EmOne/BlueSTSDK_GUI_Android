@@ -1,6 +1,6 @@
 # BlueSTSDK Gui
 
-This library is built on top of the [BlueSTSDK](https://github.com/STMicroelectronicswq/BlueSTSDK_Android) library.
+This library is built on top of the [BlueSTSDK](https://github.com/STMicroelectronics/BlueSTSDK_Android) library.
 
 It extends the BlueSTSDK providing firmware update over bluetooth and a set of helper classes to build a consistent user interface among apps based on the BlueSTSDK library.
 
