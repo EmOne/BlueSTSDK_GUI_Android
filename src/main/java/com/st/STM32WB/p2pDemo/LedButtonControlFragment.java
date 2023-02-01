@@ -39,10 +39,6 @@ package com.st.STM32WB.p2pDemo;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.Group;
-import androidx.core.app.NavUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -52,14 +48,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.Group;
+import androidx.core.app.NavUtils;
+
 import com.st.BlueSTSDK.Feature;
 import com.st.BlueSTSDK.Node;
 import com.st.BlueSTSDK.gui.NodeConnectionService;
 import com.st.BlueSTSDK.gui.R;
 import com.st.BlueSTSDK.gui.demos.DemoDescriptionAnnotation;
 import com.st.STM32WB.p2pDemo.feature.FeatureControlLed;
-import com.st.STM32WB.p2pDemo.feature.FeatureSwitchStatus;
 import com.st.STM32WB.p2pDemo.feature.FeatureProtocolRadioReboot;
+import com.st.STM32WB.p2pDemo.feature.FeatureSwitchStatus;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

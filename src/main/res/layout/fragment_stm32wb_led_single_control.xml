@@ -84,6 +84,64 @@
         app:layout_constraintStart_toEndOf="@+id/stm32wb_single_alarmImage"
         app:layout_constraintTop_toTopOf="@+id/stm32wb_single_alarmImage" />
 
+    <ImageView
+        android:id="@+id/stm32wb_current_sourceImage"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stm32wb_single_alarmImage"
+        app:srcCompat="@drawable/about_button_icon" />
+
+    <EditText
+        android:id="@+id/stm32wb_current_sourceText"
+        android:layout_width="212dp"
+        android:layout_height="42dp"
+        android:hint="@string/stm32wb_current_hint"
+        android:imeOptions="actionSend"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/stm32wb_current_sourceImage"
+        tools:layout_editor_absoluteX="70dp"
+        app:layout_constraintStart_toEndOf="@+id/stm32wb_current_sourceImage"
+        app:layout_constraintTop_toTopOf="@+id/stm32wb_current_sourceImage" />
+    />
+
+    <Button
+        android:id="@+id/stm32wb_current_sourceButton"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/stm32wb_current_sourceText"
+        app:layout_constraintStart_toEndOf="@+id/stm32wb_current_sourceText"
+        app:layout_constraintTop_toTopOf="@+id/stm32wb_current_sourceText"
+        />
+
+    <ImageView
+        android:id="@+id/stm32wb_current_sinkImage"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stm32wb_current_sourceImage"
+        app:srcCompat="@drawable/about_button_icon" />
+
+    <TextView
+        android:id="@+id/stm32wb_current_sinkText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/stm32wb_current_caption"
+        tools:text="Current sink: 4-20 [mA]"
+        app:layout_constraintBottom_toBottomOf="@+id/stm32wb_current_sinkImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/stm32wb_current_sinkImage"
+        app:layout_constraintTop_toTopOf="@+id/stm32wb_current_sinkImage" />
+
     <TextView
         android:id="@+id/stm32wb_single_ledCapture"
         android:layout_width="0dp"

@@ -45,8 +45,6 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         consumerProguardFiles 'proguard-rules.pro'
@@ -69,6 +67,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    namespace 'com.st.BlueSTSDK.gui'
 
 }
 

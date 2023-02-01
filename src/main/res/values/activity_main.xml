@@ -37,7 +37,7 @@
   -->
 
 <resources>
-    <string name="copyright">\u00A9 2021 STMicroelectronics</string>
+    <string name="copyright">\u00A9 2022 EmOne\nSponsored by SISGEO</string>
     <string name="version">Version: </string>
     <string name="startScanButton">Connect one Device</string>
     <string name="startAboutButton">About</string>
