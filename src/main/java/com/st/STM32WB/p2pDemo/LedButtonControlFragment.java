@@ -39,12 +39,16 @@ package com.st.STM32WB.p2pDemo;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -68,6 +72,8 @@ import com.st.STM32WB.p2pDemo.feature.FeatureSwitchStatus;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @DemoDescriptionAnnotation(name="Led Control",
         requareAll = {FeatureSwitchStatus.class,FeatureControlLed.class})
@@ -90,14 +96,13 @@ public class LedButtonControlFragment extends RssiDemoFragment {
     private TextView mAlarmText;
     private ImageView mAlarmImage;
 
-
+    private ToggleButton mCurrentSourceEnableToggleButton;
+    private EditText mCurrentSourceInputText;
     private RadioGroup mCurrentModeRadioGroup;
-
     private RadioButton mCurrentModeSingleRadioButton,  mCurrentModeRampRadioButton, mCurrentModeStepRadioButton;
 
-    private EditText mCurrentSourceInputText;
-    private ToggleButton mCurrentSourceEnableToggleButton;
     private ToggleButton mCurrentSinkEnableToggleButton;
+    private TextView mCurrentSinkText;
 
     private FeatureSwitchStatus mButtonFeature;
     private FeatureControlLed mLedControlFeature;
@@ -177,35 +182,79 @@ public class LedButtonControlFragment extends RssiDemoFragment {
         mAlarmText.setText(getResources().getString(R.string.stm32wb_single_alarm_caption));
         mAlarmImage.setColorFilter(getResources().getColor(R.color.colorGrey));
 
-        mCurrentModeRadioGroup = root.findViewById(R.id.radio_current_source_mode);
-        mCurrentModeRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId){
-//                    case R.id.radio_set:
-//                        break;
-//                    case R.id.radio_ramp:
-//                        break;
-//                    case R.id.radio_step:
-//                        break;
-                }
-            }
-        });
-        mCurrentModeRadioGroup.check(R.id.radio_set);
-
         mCurrentSourceEnableToggleButton = root.findViewById(R.id.stm32wb_current_sourceImage);
-        mCurrentSourceEnableToggleButton.setOnClickListener(new View.OnClickListener() {
+        mCurrentSourceInputText = root.findViewById(R.id.stm32wb_current_sourceText);
+        mCurrentSourceInputText.setEnabled(false);
+        mCurrentSourceInputText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                boolean checked = ((ToggleButton) v).isChecked();
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String text = mCurrentSourceInputText.getText().toString();
+                int textlength = mCurrentSourceInputText.getText().length();
+
+                if(text.endsWith(" ") || text.equals("0") || text.isEmpty()) {
+                    return;
+                }
+
+                if(text.startsWith("."))
+                {
+                    mCurrentSourceInputText.setText("0.");
+                    return;
+                }
+
+                float f = Float.parseFloat(text);
+                if (f > 20.0f) {
+                    f = 20.0f;
+                    text = String.format("%.2f", f);
+                    mCurrentSourceInputText.setText(text);
+                }
+                mCurrentSourceInputText.setSelection(mCurrentSourceInputText.getText().length());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String s1 = s.toString();
+                float f = Float.parseFloat(s1);
+                if (f < 4) {
+                    f = 4.0f;
+                    mCurrentSourceInputText.setText(String.format("%.2f", f));
+                    mCurrentSourceInputText.setSelection(mCurrentSourceInputText.getText().length());
+                }
+
             }
         });
-        mCurrentSinkEnableToggleButton = root.findViewById(R.id.stm32wb_current_sinkImage);
-        mCurrentSinkEnableToggleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean checked = ((ToggleButton) v).isChecked();
+        mCurrentSourceInputText.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEND) {
+                changeCurrentSourceMode(mCurrentModeRadioGroup.getCheckedRadioButtonId());
+                return true;
             }
+            return false;
+        });
+
+        mCurrentModeRadioGroup = root.findViewById(R.id.radio_current_source_mode);
+        mCurrentModeSingleRadioButton = root.findViewById(R.id.radio_set);
+        mCurrentModeRampRadioButton = root.findViewById(R.id.radio_ramp);
+        mCurrentModeStepRadioButton = root.findViewById(R.id.radio_step);
+        mCurrentSourceEnableToggleButton.setOnClickListener(v ->  {
+            boolean checked = ((ToggleButton) v).isChecked();
+            changeCurrentSourceEnable(checked);
+        });
+        mCurrentModeRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if (mCurrentSourceEnableToggleButton.isChecked()) {
+                changeCurrentSourceMode(checkedId);
+            }
+        });
+
+        mCurrentSinkEnableToggleButton = root.findViewById(R.id.stm32wb_current_sinkImage);
+        mCurrentSinkText = root.findViewById(R.id.stm32wb_current_sinkText);
+        mCurrentSinkText.setEnabled(false);
+        mCurrentSinkEnableToggleButton.setOnClickListener(v -> {
+            boolean checked = ((ToggleButton) v).isChecked();
+            changeCurrentSinkEnable(checked);
         });
 
         if(savedInstanceState!=null &&
@@ -225,18 +274,75 @@ public class LedButtonControlFragment extends RssiDemoFragment {
     private void changeRemoteLedStatus(boolean newState){
         if(mLedControlFeature ==null)
             return;
-        if(newState){
+        if(newState) {
             mLedControlFeature.switchOnLed(mCurrentDevice);
-        }else{
+        } else {
             mLedControlFeature.switchOffLed(mCurrentDevice);
         }
     }
 
     private void changeLedStatusImage(boolean newState){
-        if(newState){
+        if(newState) {
             mLedImage.setImageResource(R.drawable.stm32wb_led_on);
-        }else{
+        } else {
             mLedImage.setImageResource(R.drawable.stm32wb_led_off);
+        }
+    }
+
+    private void changeCurrentSourceEnable(boolean newState)
+    {
+        if(mLedControlFeature ==null)
+            return;
+
+        if (newState){
+            mCurrentSourceInputText.setEnabled(true);
+            mCurrentModeSingleRadioButton.setEnabled(true);
+            mCurrentModeRampRadioButton.setEnabled(true);
+            mCurrentModeStepRadioButton.setEnabled(true);
+            //TODO: send current source enable currently command -> ref. radio mode selection
+            changeCurrentSourceMode(mCurrentModeRadioGroup.getCheckedRadioButtonId());
+        } else {
+            mCurrentSourceInputText.setEnabled(false);
+            mCurrentModeSingleRadioButton.setEnabled(false);
+            mCurrentModeRampRadioButton.setEnabled(false);
+            mCurrentModeStepRadioButton.setEnabled(false);
+            //TODO: send current source disable command
+            mLedControlFeature.switchCurrentSourceOff(mCurrentDevice);
+        }
+    }
+    private void changeCurrentSourceMode(int index)
+    {
+        String text = mCurrentSourceInputText.getText().toString();
+        if (text.isEmpty())
+            text = "4";
+        float f = Float.parseFloat(text);
+        short b = (short) ((f / 20.0f) * 4095.0f);
+        byte[] a = { (byte)((b >> 8) & 0xff) , (byte)(b & 0xff)};
+
+        if (mCurrentModeSingleRadioButton.getId() == index){
+            mCurrentSourceInputText.setEnabled(true);
+             //TODO: send current source single command
+            mLedControlFeature.switchCurrentSourceOn(mCurrentDevice, (byte) 0x00, a);
+        } else if (mCurrentModeRampRadioButton.getId() == index) {
+            mCurrentSourceInputText.setEnabled(false);
+            //TODO: send current source ramp command
+            mLedControlFeature.switchCurrentSourceOn(mCurrentDevice, (byte) 0x01, a);
+        } else if (mCurrentModeStepRadioButton.getId() == index) {
+            mCurrentSourceInputText.setEnabled(false);
+            //TODO: send current source step command
+            mLedControlFeature.switchCurrentSourceOn(mCurrentDevice, (byte) 0x02, a);
+        }
+    }
+    private void changeCurrentSinkEnable(boolean newState)
+    {
+        if (newState){
+            mCurrentSinkText.setEnabled(true);
+            //TODO: send sink enable command
+            mLedControlFeature.switchCurrentSinkOn(mCurrentDevice);
+        } else {
+            mCurrentSinkText.setEnabled(false);
+            //TODO: send sink disable command
+            mLedControlFeature.switchCurrentSinkOff(mCurrentDevice);
         }
     }
 
@@ -321,26 +427,5 @@ public class LedButtonControlFragment extends RssiDemoFragment {
             node.disableNotification(mButtonFeature);
         }
     }
-
-//    public void onRadioButtonClicked(View view) {
-//        // Is the button now checked?
-//        boolean checked = ((RadioButton) view).isChecked();
-//
-//        // Check which radio button was clicked
-////        switch(view.getId()) {
-////            case R.id.radio_set:
-////                if (checked)
-////                    // Pirates are the best
-////                    break;
-////            case R.id.radio_ramp:
-////                if (checked)
-////                    // Ninjas rule
-////                    break;
-////            case R.id.radio_step:
-////                if (checked)
-////                    // Ninjas rule
-////                    break;
-////        }
-//    }
 }
 

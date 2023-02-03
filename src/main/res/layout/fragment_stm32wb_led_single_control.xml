@@ -95,28 +95,32 @@
 
     <EditText
         android:id="@+id/stm32wb_current_sourceText"
-        android:layout_width="87dp"
-        android:layout_height="41dp"
+        android:layout_width="91dp"
+        android:layout_height="54dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:digits="0123456789."
         android:ems="5"
+        android:enabled="false"
         android:hint="@string/stm32wb_current_hint"
-        android:inputType="number"
+        android:imeOptions="actionSend"
+        android:inputType="numberDecimal"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="@+id/stm32wb_current_sourceImage"
         app:layout_constraintStart_toEndOf="@+id/stm32wb_current_sourceImage"
         app:layout_constraintTop_toTopOf="@+id/stm32wb_current_sourceImage"
-        tools:text="Source: 4 [mA]" />
+        tools:text="4" />
 
     <RadioGroup
         android:id="@+id/radio_current_source_mode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:checkedButton="@id/radio_set"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="@+id/stm32wb_current_sourceText"
         app:layout_constraintStart_toEndOf="@+id/stm32wb_current_sourceText"
         app:layout_constraintTop_toTopOf="@+id/stm32wb_current_sourceText">
@@ -126,24 +130,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Single"
-
-            />
+            android:enabled="false"
+            android:text="Single" />
 
         <RadioButton
             android:id="@+id/radio_ramp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="RAMP"
-            />
+            android:enabled="false"
+            android:text="RAMP" />
 
         <RadioButton
             android:id="@+id/radio_step"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="STEP"
-
-            />
+            android:enabled="false"
+            android:text="STEP" />
     </RadioGroup>
 
     <ToggleButton
@@ -164,6 +166,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:enabled="false"
         android:text="@string/stm32wb_current_caption"
         app:layout_constraintBottom_toBottomOf="@+id/stm32wb_current_sinkImage"
         app:layout_constraintEnd_toEndOf="parent"

@@ -67,16 +67,26 @@ public class FeatureControlLed extends Feature {
      *
      * @param device device where switch on the led
      */
+    public void switchOffLed(Peer2PeerDemoConfiguration.DeviceID device){
+        writeData(new byte[]{device.getId(),SWITCH_OFF_COMMAND});
+    }
     public void switchOnLed(Peer2PeerDemoConfiguration.DeviceID device){
         writeData(new byte[]{device.getId(),SWITCH_ON_COMMAND});
     }
-
+    public void switchCurrentSinkOn(Peer2PeerDemoConfiguration.DeviceID device){
+        writeData(new byte[]{device.getId(),0x02});
+    }
+    public void switchCurrentSinkOff(Peer2PeerDemoConfiguration.DeviceID device){
+        writeData(new byte[]{device.getId(),0x03});
+    }
+    public void switchCurrentSourceOn(Peer2PeerDemoConfiguration.DeviceID device, byte mode, byte[] val){
+        writeData(new byte[]{device.getId(), 0x4, mode, val[0], val[1]});
+    }
     /**
      *
      * @param device device where switch off the led
      */
-    public void switchOffLed(Peer2PeerDemoConfiguration.DeviceID device){
-        writeData(new byte[]{device.getId(),SWITCH_OFF_COMMAND});
+    public void switchCurrentSourceOff(Peer2PeerDemoConfiguration.DeviceID device){
+        writeData(new byte[]{device.getId(), 0x5});
     }
-
 }
