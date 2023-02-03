@@ -45,8 +45,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.Group;
@@ -69,12 +73,11 @@ import java.util.Locale;
         requareAll = {FeatureSwitchStatus.class,FeatureControlLed.class})
 public class LedButtonControlFragment extends RssiDemoFragment {
 
-
     private static final String DEVICE_ID_KEY = LedButtonControlFragment.class.getName()+".DEVICE_ID_KEY";
     private static final String LED_STATUS_KEY = LedButtonControlFragment.class.getName()+".LED_STATUS_KEY";
     private static final String ALARM_STATUS_KEY = LedButtonControlFragment.class.getName()+".ALARM_STATUS_KEY";
     private static final String ALARM_TEXT_KEY = LedButtonControlFragment.class.getName()+".ALARM_TEXT_KEY";
-    private static final SimpleDateFormat ALLARM_FORMATTER = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
+    private static final SimpleDateFormat ALARM_FORMATTER = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
 
     private TextView mDeviceName;
     private TextView mInstructionText;
@@ -86,6 +89,15 @@ public class LedButtonControlFragment extends RssiDemoFragment {
     private Group mLedViewGroup;
     private TextView mAlarmText;
     private ImageView mAlarmImage;
+
+
+    private RadioGroup mCurrentModeRadioGroup;
+
+    private RadioButton mCurrentModeSingleRadioButton,  mCurrentModeRampRadioButton, mCurrentModeStepRadioButton;
+
+    private EditText mCurrentSourceInputText;
+    private ToggleButton mCurrentSourceEnableToggleButton;
+    private ToggleButton mCurrentSinkEnableToggleButton;
 
     private FeatureSwitchStatus mButtonFeature;
     private FeatureControlLed mLedControlFeature;
@@ -104,7 +116,7 @@ public class LedButtonControlFragment extends RssiDemoFragment {
                 updateGui(()-> showDeviceDetected(mCurrentDevice));
             }
 
-            final String eventDate = ALLARM_FORMATTER.format(new Date(sample.notificationTime));
+            final String eventDate = ALARM_FORMATTER.format(new Date(sample.notificationTime));
             int isSelected = FeatureSwitchStatus.isSwitchOn(sample) ? 1 : 0;
             updateGui(() -> {
                 mAlarmText.setText(getString(R.string.stm32wb_single_eventFormat,eventDate, isSelected));
@@ -164,6 +176,37 @@ public class LedButtonControlFragment extends RssiDemoFragment {
         mDeviceName = root.findViewById(R.id.stm32wb_single_titleText);
         mAlarmText.setText(getResources().getString(R.string.stm32wb_single_alarm_caption));
         mAlarmImage.setColorFilter(getResources().getColor(R.color.colorGrey));
+
+        mCurrentModeRadioGroup = root.findViewById(R.id.radio_current_source_mode);
+        mCurrentModeRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+//                    case R.id.radio_set:
+//                        break;
+//                    case R.id.radio_ramp:
+//                        break;
+//                    case R.id.radio_step:
+//                        break;
+                }
+            }
+        });
+        mCurrentModeRadioGroup.check(R.id.radio_set);
+
+        mCurrentSourceEnableToggleButton = root.findViewById(R.id.stm32wb_current_sourceImage);
+        mCurrentSourceEnableToggleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean checked = ((ToggleButton) v).isChecked();
+            }
+        });
+        mCurrentSinkEnableToggleButton = root.findViewById(R.id.stm32wb_current_sinkImage);
+        mCurrentSinkEnableToggleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean checked = ((ToggleButton) v).isChecked();
+            }
+        });
 
         if(savedInstanceState!=null &&
                 savedInstanceState.containsKey(DEVICE_ID_KEY)){
@@ -279,5 +322,25 @@ public class LedButtonControlFragment extends RssiDemoFragment {
         }
     }
 
+//    public void onRadioButtonClicked(View view) {
+//        // Is the button now checked?
+//        boolean checked = ((RadioButton) view).isChecked();
+//
+//        // Check which radio button was clicked
+////        switch(view.getId()) {
+////            case R.id.radio_set:
+////                if (checked)
+////                    // Pirates are the best
+////                    break;
+////            case R.id.radio_ramp:
+////                if (checked)
+////                    // Ninjas rule
+////                    break;
+////            case R.id.radio_step:
+////                if (checked)
+////                    // Ninjas rule
+////                    break;
+////        }
+//    }
 }
 
