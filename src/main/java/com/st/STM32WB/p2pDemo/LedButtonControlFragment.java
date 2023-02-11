@@ -40,7 +40,6 @@ import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -72,8 +71,6 @@ import com.st.STM32WB.p2pDemo.feature.FeatureSwitchStatus;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @DemoDescriptionAnnotation(name="Led Control",
         requareAll = {FeatureSwitchStatus.class,FeatureControlLed.class})
@@ -207,8 +204,8 @@ public class LedButtonControlFragment extends RssiDemoFragment {
                 }
 
                 float f = Float.parseFloat(text);
-                if (f > 20.0f) {
-                    f = 20.0f;
+                if (f > 24.0f) {
+                    f = 24.0f;
                     text = String.format("%.2f", f);
                     mCurrentSourceInputText.setText(text);
                 }
@@ -217,13 +214,6 @@ public class LedButtonControlFragment extends RssiDemoFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                String s1 = s.toString();
-                float f = Float.parseFloat(s1);
-                if (f < 4) {
-                    f = 4.0f;
-                    mCurrentSourceInputText.setText(String.format("%.2f", f));
-                    mCurrentSourceInputText.setSelection(mCurrentSourceInputText.getText().length());
-                }
 
             }
         });
@@ -316,7 +306,7 @@ public class LedButtonControlFragment extends RssiDemoFragment {
         if (text.isEmpty())
             text = "4";
         float f = Float.parseFloat(text);
-        short b = (short) ((f / 20.0f) * 4095.0f);
+        short b = (short) ((f / 24.0f) * 4095.0f);
         byte[] a = { (byte)((b >> 8) & 0xff) , (byte)(b & 0xff)};
 
         if (mCurrentModeSingleRadioButton.getId() == index){

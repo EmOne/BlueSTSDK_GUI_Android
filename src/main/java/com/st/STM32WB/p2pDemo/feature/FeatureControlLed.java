@@ -41,12 +41,17 @@ import com.st.BlueSTSDK.Features.Field;
 import com.st.BlueSTSDK.Node;
 import com.st.STM32WB.p2pDemo.Peer2PeerDemoConfiguration;
 
+
 /**
  * Write feature used to switch on and off the board led
  */
 public class FeatureControlLed extends Feature {
     public static final String FEATURE_NAME = "ControlLed";
 
+    private static final byte SOURCE_ON_COMMAND  = 0x05;
+    private static final byte SOURCE_OFF_COMMAND  = 0x04;
+    private static final byte SINK_ON_COMMAND  = 0x03;
+    private static final byte SINK_OFF_COMMAND  = 0x02;
     private static final byte SWITCH_ON_COMMAND  = 0x01;
     private static final byte SWITCH_OFF_COMMAND = 0x00;
 
@@ -73,20 +78,16 @@ public class FeatureControlLed extends Feature {
     public void switchOnLed(Peer2PeerDemoConfiguration.DeviceID device){
         writeData(new byte[]{device.getId(),SWITCH_ON_COMMAND});
     }
-    public void switchCurrentSinkOn(Peer2PeerDemoConfiguration.DeviceID device){
-        writeData(new byte[]{device.getId(),0x02});
-    }
     public void switchCurrentSinkOff(Peer2PeerDemoConfiguration.DeviceID device){
-        writeData(new byte[]{device.getId(),0x03});
+        writeData(new byte[]{device.getId(),SINK_OFF_COMMAND});
+    }
+    public void switchCurrentSinkOn(Peer2PeerDemoConfiguration.DeviceID device){
+        writeData(new byte[]{device.getId(),SINK_ON_COMMAND});
+    }
+    public void switchCurrentSourceOff(Peer2PeerDemoConfiguration.DeviceID device){
+        writeData(new byte[]{device.getId(), SOURCE_OFF_COMMAND});
     }
     public void switchCurrentSourceOn(Peer2PeerDemoConfiguration.DeviceID device, byte mode, byte[] val){
-        writeData(new byte[]{device.getId(), 0x4, mode, val[0], val[1]});
-    }
-    /**
-     *
-     * @param device device where switch off the led
-     */
-    public void switchCurrentSourceOff(Peer2PeerDemoConfiguration.DeviceID device){
-        writeData(new byte[]{device.getId(), 0x5});
+        writeData(new byte[]{device.getId(), SOURCE_ON_COMMAND, mode, val[0], val[1]});
     }
 }

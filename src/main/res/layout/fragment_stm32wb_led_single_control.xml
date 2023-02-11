@@ -21,13 +21,14 @@
 
     <ImageView
         android:id="@+id/stm32wb_single_ledImage"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:clickable="false"
+        android:contentDescription="@string/stm32wb_single_led_statusDesc"
         app:layout_constraintBottom_toTopOf="@+id/stm32wb_single_ledCapture"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/stm32wb_current_sinkImage"
@@ -88,29 +89,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:textOff="DIS"
+        android:textOn="ENA"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stm32wb_single_alarmImage"
-        app:srcCompat="@drawable/about_button_icon" />
-
-    <EditText
-        android:id="@+id/stm32wb_current_sourceText"
-        android:layout_width="91dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:digits="0123456789."
-        android:ems="5"
-        android:enabled="false"
-        android:hint="@string/stm32wb_current_hint"
-        android:imeOptions="actionSend"
-        android:inputType="numberDecimal"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="@+id/stm32wb_current_sourceImage"
-        app:layout_constraintStart_toEndOf="@+id/stm32wb_current_sourceImage"
-        app:layout_constraintTop_toTopOf="@+id/stm32wb_current_sourceImage"
-        tools:text="4" />
+        app:layout_constraintTop_toBottomOf="@+id/currentSourceTextView" />
 
     <RadioGroup
         android:id="@+id/radio_current_source_mode"
@@ -148,15 +130,24 @@
             android:text="STEP" />
     </RadioGroup>
 
-    <ToggleButton
-        android:id="@+id/stm32wb_current_sinkImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <EditText
+        android:id="@+id/stm32wb_current_sourceText"
+        android:layout_width="91dp"
+        android:layout_height="54dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radio_current_source_mode"
-        app:srcCompat="@drawable/about_button_icon" />
+        android:layout_marginBottom="8dp"
+        android:digits="0123456789."
+        android:ems="5"
+        android:enabled="false"
+        android:hint="@string/stm32wb_current_source_hint"
+        android:imeOptions="actionSend"
+        android:inputType="numberDecimal"
+        android:text="4"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/stm32wb_current_sourceImage"
+        app:layout_constraintStart_toEndOf="@+id/stm32wb_current_sourceImage"
+        app:layout_constraintTop_toTopOf="@+id/stm32wb_current_sourceImage" />
 
     <TextView
         android:id="@+id/stm32wb_current_sinkText"
@@ -167,12 +158,22 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:enabled="false"
-        android:text="@string/stm32wb_current_caption"
+        android:text="@string/stm32wb_current_sink_caption"
         app:layout_constraintBottom_toBottomOf="@+id/stm32wb_current_sinkImage"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/stm32wb_current_sinkImage"
         app:layout_constraintTop_toTopOf="@+id/stm32wb_current_sinkImage"
+        app:layout_constraintVertical_bias="0.615"
         tools:text="Sink: 4 [mA]" />
+
+    <ToggleButton
+        android:id="@+id/stm32wb_current_sinkImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentSinkTextView" />
 
     <TextView
         android:id="@+id/stm32wb_single_ledCapture"
@@ -225,4 +226,24 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stm32wb_current_sinkImage" />
+
+    <TextView
+        android:id="@+id/currentSourceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/stm32wb_current_source_text"
+        app:layout_constraintEnd_toStartOf="@+id/stm32wb_current_sourceText"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/stm32wb_single_alarmImage"
+        app:layout_constraintTop_toBottomOf="@+id/stm32wb_single_alarmImage" />
+
+    <TextView
+        android:id="@+id/currentSinkTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/stm32wb_current_sink_text"
+        app:layout_constraintStart_toStartOf="@+id/currentSourceTextView"
+        app:layout_constraintTop_toBottomOf="@+id/stm32wb_current_sourceImage" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
