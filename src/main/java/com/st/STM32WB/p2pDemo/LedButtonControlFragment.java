@@ -120,8 +120,11 @@ public class LedButtonControlFragment extends RssiDemoFragment {
 
             final String eventDate = ALARM_FORMATTER.format(new Date(sample.notificationTime));
             int isSelected = FeatureSwitchStatus.isSwitchOn(sample) ? 1 : 0;
+            float current_val = sample.data[2].floatValue();
+
             updateGui(() -> {
                 mAlarmText.setText(getString(R.string.stm32wb_single_eventFormat,eventDate, isSelected));
+                mCurrentSinkText.setText(getString(R.string.stm32wb_currentFormat, current_val));
                 animateAlarmColor();
             });
         }//on update
