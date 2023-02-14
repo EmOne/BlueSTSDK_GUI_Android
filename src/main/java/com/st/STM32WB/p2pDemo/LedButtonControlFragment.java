@@ -309,7 +309,7 @@ public class LedButtonControlFragment extends RssiDemoFragment {
         if (text.isEmpty())
             text = "4";
         float f = Float.parseFloat(text);
-        short b = (short) ((f / 24.0f) * 4095.0f);
+        short b = (short) ((f) * 100.0f);
         byte[] a = { (byte)((b >> 8) & 0xff) , (byte)(b & 0xff)};
 
         if (mCurrentModeSingleRadioButton.getId() == index){

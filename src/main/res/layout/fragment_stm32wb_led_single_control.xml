@@ -50,10 +50,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/stm32wb_single_rssiImage"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/stm32wb_single_rssiImage"
         app:layout_constraintTop_toTopOf="@+id/stm32wb_single_rssiImage"
         tools:text="Rssi: 80 [db]" />
@@ -63,9 +61,11 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stm32wb_single_rssiImage"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/stm32wb_single_rssiImage"
+        app:layout_constraintStart_toEndOf="@+id/stm32wb_single_rssiText"
+        app:layout_constraintTop_toTopOf="@+id/stm32wb_single_rssiImage"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/bell_ring" />
 
     <TextView
@@ -153,12 +153,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:enabled="false"
         android:text="@string/stm32wb_current_sink_caption"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/stm32wb_current_sinkImage"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/radio_current_source_mode"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/stm32wb_current_sinkImage"
         app:layout_constraintTop_toTopOf="@+id/stm32wb_current_sinkImage"
@@ -225,12 +225,9 @@
         android:id="@+id/currentSourceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:text="@string/stm32wb_current_source_text"
-        app:layout_constraintEnd_toStartOf="@+id/stm32wb_current_sourceText"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/stm32wb_single_alarmImage"
-        app:layout_constraintTop_toBottomOf="@+id/stm32wb_single_alarmImage" />
+        app:layout_constraintStart_toStartOf="@+id/stm32wb_single_rssiImage"
+        app:layout_constraintTop_toBottomOf="@+id/stm32wb_single_rssiImage" />
 
     <TextView
         android:id="@+id/currentSinkTextView"
