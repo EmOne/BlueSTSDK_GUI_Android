@@ -24,13 +24,12 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:clickable="false"
         android:contentDescription="@string/stm32wb_single_led_statusDesc"
         app:layout_constraintBottom_toTopOf="@+id/stm32wb_single_ledCapture"
         app:layout_constraintStart_toStartOf="@+id/stm32wb_current_sinkImage"
-        app:layout_constraintTop_toBottomOf="@+id/stm32wb_current_sinkImage"
+        app:layout_constraintTop_toBottomOf="@+id/toggleTemperatureButton"
         app:layout_constraintVertical_chainStyle="spread_inside"
         app:srcCompat="@drawable/stm32wb_led_off" />
 
@@ -175,10 +174,9 @@
 
     <TextView
         android:id="@+id/stm32wb_single_ledCapture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/stm32wb_single_led_caption"
         android:textAlignment="center"
@@ -186,7 +184,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/stm32wb_single_instruction"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stm32wb_current_sinkImage" />
+        app:layout_constraintTop_toBottomOf="@+id/toggleTemperatureButton" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/stm32wb_single_alarmView"
@@ -236,5 +234,164 @@
         android:text="@string/stm32wb_current_sink_text"
         app:layout_constraintStart_toStartOf="@+id/currentSourceTextView"
         app:layout_constraintTop_toBottomOf="@+id/stm32wb_current_sourceImage" />
+
+    <TextView
+        android:id="@+id/voltageSinkTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/stm32wb_voltage_sink_text"
+        app:layout_constraintStart_toStartOf="@+id/currentSinkTextView"
+        app:layout_constraintTop_toBottomOf="@+id/stm32wb_current_sinkImage" />
+
+    <TextView
+        android:id="@+id/vibrateSinkTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/stm32wb_vibrating_sink_text"
+        app:layout_constraintStart_toStartOf="@+id/toggleVoltageButton"
+        app:layout_constraintTop_toBottomOf="@+id/toggleVoltageButton" />
+
+    <ToggleButton
+        android:id="@+id/toggleVoltageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="ToggleButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/voltageSinkTextView" />
+
+    <Switch
+        android:id="@+id/voltageswitchMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:enabled="false"
+        android:text="Volt/Ratio"
+        android:textOff="@string/stm32wb_ratiometric_sink_text"
+        android:textOn="@string/stm32wb_voltage_sink_text"
+        app:layout_constraintBottom_toBottomOf="@+id/toggleVoltageButton"
+        app:layout_constraintStart_toEndOf="@+id/toggleVoltageButton"
+        app:layout_constraintTop_toTopOf="@+id/toggleVoltageButton" />
+
+    <TextView
+        android:id="@+id/textvoltageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:enabled="false"
+        android:text="@string/stm32wb_millivoltFormat"
+        app:layout_constraintBottom_toBottomOf="@+id/voltageswitchMode"
+        app:layout_constraintStart_toEndOf="@+id/voltageswitchMode"
+        app:layout_constraintTop_toTopOf="@+id/voltageswitchMode" />
+
+    <ToggleButton
+        android:id="@+id/toggleVibrateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ToggleButton"
+        app:layout_constraintStart_toStartOf="@+id/vibrateSinkTextView"
+        app:layout_constraintTop_toBottomOf="@+id/vibrateSinkTextView" />
+
+    <TextView
+        android:id="@+id/textVibrateView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:enabled="false"
+        android:text="@string/stm32wb_vibratingFormat"
+        app:layout_constraintBottom_toBottomOf="@+id/toggleVibrateButton"
+        app:layout_constraintStart_toEndOf="@+id/toggleVibrateButton"
+        app:layout_constraintTop_toTopOf="@+id/toggleVibrateButton" />
+
+    <TextView
+        android:id="@+id/textTemperatureSinkView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/stm32wb_temperature_sink_text"
+        app:layout_constraintStart_toStartOf="@+id/vibrateSinkTextView"
+        app:layout_constraintTop_toBottomOf="@+id/toggleVibrateButton" />
+
+    <ToggleButton
+        android:id="@+id/toggleTemperatureButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ToggleButton"
+        app:layout_constraintStart_toStartOf="@+id/textTemperatureSinkView"
+        app:layout_constraintTop_toBottomOf="@+id/textTemperatureSinkView" />
+
+    <TextView
+        android:id="@+id/textTemperatureView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:enabled="false"
+        android:text="@string/stm32wb_temperatureFormat"
+        app:layout_constraintBottom_toBottomOf="@+id/toggleTemperatureButton"
+        app:layout_constraintStart_toEndOf="@+id/toggleTemperatureButton"
+        app:layout_constraintTop_toTopOf="@+id/toggleTemperatureButton" />
+
+    <TextView
+        android:id="@+id/textDigitalGroupView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:text="@string/stm32wb_digital_sink_text"
+        app:layout_constraintStart_toEndOf="@+id/textVibrateView"
+        app:layout_constraintTop_toTopOf="@+id/vibrateSinkTextView" />
+
+    <TableLayout
+        android:layout_width="147dp"
+        android:layout_height="106dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:stretchColumns="*"
+        app:layout_constraintBottom_toBottomOf="@+id/toggleTemperatureButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textVibrateView"
+        app:layout_constraintTop_toTopOf="@+id/textVibrateView">
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageDigital1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:srcCompat="@drawable/stm32wb_led_off">
+
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/imageDigital2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:srcCompat="@drawable/stm32wb_led_off">
+
+            </ImageView>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageDigital3"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:srcCompat="@drawable/stm32wb_led_off">
+
+            </ImageView>
+
+            <ImageView
+                android:id="@+id/imageDigital4"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:srcCompat="@drawable/stm32wb_led_off">
+
+            </ImageView>
+        </TableRow>
+
+    </TableLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
