@@ -23,12 +23,11 @@
         android:id="@+id/stm32wb_single_ledImage"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:clickable="false"
         android:contentDescription="@string/stm32wb_single_led_statusDesc"
         app:layout_constraintBottom_toTopOf="@+id/stm32wb_single_ledCapture"
-        app:layout_constraintStart_toStartOf="@+id/stm32wb_current_sinkImage"
+        app:layout_constraintStart_toStartOf="@+id/toggleTemperatureButton"
         app:layout_constraintTop_toBottomOf="@+id/toggleTemperatureButton"
         app:layout_constraintVertical_chainStyle="spread_inside"
         app:srcCompat="@drawable/stm32wb_led_off" />
