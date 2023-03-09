@@ -48,6 +48,12 @@ import com.st.STM32WB.p2pDemo.Peer2PeerDemoConfiguration;
 public class FeatureControlLed extends Feature {
     public static final String FEATURE_NAME = "ControlLed";
 
+    private static final byte TEMPERATURE_ON_COMMAND  = 0x0B;
+    private static final byte TEMPERATURE_OFF_COMMAND  = 0x0A;
+    private static final byte VIBRATE_ON_COMMAND  = 0x09;
+    private static final byte VIBRATE_OFF_COMMAND  = 0x08;
+    private static final byte VOLTAGE_ON_COMMAND  = 0x07;
+    private static final byte VOLTAGE_OFF_COMMAND  = 0x06;
     private static final byte SOURCE_ON_COMMAND  = 0x05;
     private static final byte SOURCE_OFF_COMMAND  = 0x04;
     private static final byte SINK_ON_COMMAND  = 0x03;
@@ -89,5 +95,23 @@ public class FeatureControlLed extends Feature {
     }
     public void switchCurrentSourceOn(Peer2PeerDemoConfiguration.DeviceID device, byte mode, byte[] val){
         writeData(new byte[]{device.getId(), SOURCE_ON_COMMAND, mode, val[0], val[1]});
+    }
+    public void switchVoltageSinkOff(Peer2PeerDemoConfiguration.DeviceID device){
+        writeData(new byte[]{device.getId(), VOLTAGE_OFF_COMMAND});
+    }
+    public void switchVoltageSinkOn(Peer2PeerDemoConfiguration.DeviceID device){
+        writeData(new byte[]{device.getId(), VOLTAGE_ON_COMMAND});
+    }
+    public void switchVibrateSinkOff(Peer2PeerDemoConfiguration.DeviceID device){
+        writeData(new byte[]{device.getId(), VIBRATE_OFF_COMMAND});
+    }
+    public void switchVibrateSinkOn(Peer2PeerDemoConfiguration.DeviceID device){
+        writeData(new byte[]{device.getId(), VIBRATE_ON_COMMAND});
+    }
+    public void switchTemperatureSinkOff(Peer2PeerDemoConfiguration.DeviceID device){
+        writeData(new byte[]{device.getId(), TEMPERATURE_OFF_COMMAND});
+    }
+    public void switchTemperatureSinkOn(Peer2PeerDemoConfiguration.DeviceID device){
+        writeData(new byte[]{device.getId(), TEMPERATURE_ON_COMMAND});
     }
 }

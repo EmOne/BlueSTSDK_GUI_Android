@@ -52,6 +52,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -100,6 +101,14 @@ public class LedButtonControlFragment extends RssiDemoFragment {
 
     private ToggleButton mCurrentSinkEnableToggleButton;
     private TextView mCurrentSinkText;
+
+    private ToggleButton mVoltageSinkEnableToggleButton;
+    private Switch mVoltageSinkModeSwitch;
+    private TextView mVoltageSinkText;
+    private ToggleButton mVibrateSinkEnableToggleButton;
+    private TextView mVibrateSinkText;
+    private ToggleButton mTemperatureSinkEnableToggleButton;
+    private TextView mTemperatureSinkText;
 
     private FeatureSwitchStatus mButtonFeature;
     private FeatureControlLed mLedControlFeature;
@@ -250,6 +259,32 @@ public class LedButtonControlFragment extends RssiDemoFragment {
             changeCurrentSinkEnable(checked);
         });
 
+        mVoltageSinkEnableToggleButton = root.findViewById(R.id.toggleVoltageButton);
+        mVoltageSinkEnableToggleButton.setOnClickListener(v -> {
+            boolean checked = ((ToggleButton) v).isChecked();
+            changeVoltageSinkEnable(checked);
+        });
+        mVoltageSinkModeSwitch = root.findViewById(R.id.voltageswitchMode);
+        mVoltageSinkModeSwitch.setEnabled(false);
+        mVoltageSinkText = root.findViewById(R.id.textvoltageView);
+        mVoltageSinkText.setEnabled(false);
+
+        mVibrateSinkEnableToggleButton = root.findViewById(R.id.toggleVibrateButton);
+        mVibrateSinkEnableToggleButton.setOnClickListener(v -> {
+            boolean checked = ((ToggleButton) v).isChecked();
+            changeVibrateSinkEnable(checked);
+        });
+        mVibrateSinkText = root.findViewById(R.id.textVibrateView);
+        mVibrateSinkText.setEnabled(false);
+
+        mTemperatureSinkEnableToggleButton = root.findViewById(R.id.toggleTemperatureButton);
+        mTemperatureSinkEnableToggleButton.setOnClickListener(v -> {
+            boolean checked = ((ToggleButton) v).isChecked();
+            changeTemperatureSinkEnable(checked);
+        });
+        mTemperatureSinkText = root.findViewById(R.id.textTemperatureView);
+        mTemperatureSinkText.setEnabled(false);
+
         if(savedInstanceState!=null &&
                 savedInstanceState.containsKey(DEVICE_ID_KEY)){
             Peer2PeerDemoConfiguration.DeviceID device = (Peer2PeerDemoConfiguration.DeviceID)
@@ -338,7 +373,37 @@ public class LedButtonControlFragment extends RssiDemoFragment {
             mLedControlFeature.switchCurrentSinkOff(mCurrentDevice);
         }
     }
+    private void changeVoltageSinkEnable(boolean newState)
+    {
+        if (newState) {
+            mVoltageSinkText.setEnabled(true);
+            mLedControlFeature.switchVoltageSinkOn(mCurrentDevice);
+        } else {
+            mVoltageSinkText.setEnabled(false);
+            mLedControlFeature.switchVoltageSinkOff(mCurrentDevice);
+        }
+    }
+    private void changeVibrateSinkEnable(boolean newState)
+    {
+        if (newState) {
+            mVibrateSinkText.setEnabled(true);
+            mLedControlFeature.switchVibrateSinkOn(mCurrentDevice);
+        } else {
+            mVibrateSinkText.setEnabled(false);
+            mLedControlFeature.switchVibrateSinkOff(mCurrentDevice);
+        }
+    }
+    private void changeTemperatureSinkEnable(boolean newState)
+    {
+        if (newState) {
+            mTemperatureSinkText.setEnabled(true);
+            mLedControlFeature.switchTemperatureSinkOff(mCurrentDevice);
+        } else {
+            mTemperatureSinkText.setEnabled(false);
+            mLedControlFeature.switchTemperatureSinkOn(mCurrentDevice);
+        }
 
+    }
     private static final int ENABLE_REBOOT_THREAD_ADVERTISE_MASK = 0x00004000;
 
     @Override
