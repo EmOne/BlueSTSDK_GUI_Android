@@ -397,10 +397,10 @@ public class LedButtonControlFragment extends RssiDemoFragment {
     {
         if (newState) {
             mTemperatureSinkText.setEnabled(true);
-            mLedControlFeature.switchTemperatureSinkOff(mCurrentDevice);
+            mLedControlFeature.switchTemperatureSinkOn(mCurrentDevice);
         } else {
             mTemperatureSinkText.setEnabled(false);
-            mLedControlFeature.switchTemperatureSinkOn(mCurrentDevice);
+            mLedControlFeature.switchTemperatureSinkOff(mCurrentDevice);
         }
 
     }

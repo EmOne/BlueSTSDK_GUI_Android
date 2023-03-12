@@ -248,7 +248,7 @@
         android:layout_height="wrap_content"
         android:text="@string/stm32wb_vibrating_sink_text"
         app:layout_constraintStart_toStartOf="@+id/toggleVoltageButton"
-        app:layout_constraintTop_toBottomOf="@+id/toggleVoltageButton" />
+        app:layout_constraintTop_toBottomOf="@+id/toggleTemperatureButton" />
 
     <ToggleButton
         android:id="@+id/toggleVoltageButton"
@@ -261,8 +261,8 @@
 
     <Switch
         android:id="@+id/voltageswitchMode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="39dp"
         android:layout_marginStart="8dp"
         android:enabled="false"
         android:text="Volt/Ratio"
@@ -308,7 +308,7 @@
         android:layout_height="wrap_content"
         android:text="@string/stm32wb_temperature_sink_text"
         app:layout_constraintStart_toStartOf="@+id/vibrateSinkTextView"
-        app:layout_constraintTop_toBottomOf="@+id/toggleVibrateButton" />
+        app:layout_constraintTop_toBottomOf="@+id/toggleVoltageButton" />
 
     <ToggleButton
         android:id="@+id/toggleTemperatureButton"
@@ -322,7 +322,7 @@
         android:id="@+id/textTemperatureView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:enabled="false"
         android:text="@string/stm32wb_temperatureFormat"
         app:layout_constraintBottom_toBottomOf="@+id/toggleTemperatureButton"
@@ -341,13 +341,10 @@
     <TableLayout
         android:layout_width="147dp"
         android:layout_height="106dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
         android:stretchColumns="*"
-        app:layout_constraintBottom_toBottomOf="@+id/toggleTemperatureButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textVibrateView"
-        app:layout_constraintTop_toTopOf="@+id/textVibrateView">
+        app:layout_constraintStart_toStartOf="@+id/textDigitalGroupView"
+        app:layout_constraintTop_toBottomOf="@+id/textDigitalGroupView">
 
         <TableRow
             android:layout_width="fill_parent"
@@ -392,5 +389,15 @@
         </TableRow>
 
     </TableLayout>
+
+    <Switch
+        android:id="@+id/switchWireNumber"
+        android:layout_width="128dp"
+        android:layout_height="38dp"
+        android:enabled="false"
+        android:text="3/2,4 wire"
+        app:layout_constraintBottom_toBottomOf="@+id/toggleTemperatureButton"
+        app:layout_constraintStart_toEndOf="@+id/textTemperatureView"
+        app:layout_constraintTop_toTopOf="@+id/toggleTemperatureButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
