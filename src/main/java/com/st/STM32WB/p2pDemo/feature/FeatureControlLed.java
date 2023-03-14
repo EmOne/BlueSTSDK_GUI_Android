@@ -99,8 +99,8 @@ public class FeatureControlLed extends Feature {
     public void switchVoltageSinkOff(Peer2PeerDemoConfiguration.DeviceID device){
         writeData(new byte[]{device.getId(), VOLTAGE_OFF_COMMAND});
     }
-    public void switchVoltageSinkOn(Peer2PeerDemoConfiguration.DeviceID device){
-        writeData(new byte[]{device.getId(), VOLTAGE_ON_COMMAND});
+    public void switchVoltageSinkOn(Peer2PeerDemoConfiguration.DeviceID device, byte mode){
+        writeData(new byte[]{device.getId(), VOLTAGE_ON_COMMAND, mode});
     }
     public void switchVibrateSinkOff(Peer2PeerDemoConfiguration.DeviceID device){
         writeData(new byte[]{device.getId(), VIBRATE_OFF_COMMAND});
@@ -111,7 +111,7 @@ public class FeatureControlLed extends Feature {
     public void switchTemperatureSinkOff(Peer2PeerDemoConfiguration.DeviceID device){
         writeData(new byte[]{device.getId(), TEMPERATURE_OFF_COMMAND});
     }
-    public void switchTemperatureSinkOn(Peer2PeerDemoConfiguration.DeviceID device){
-        writeData(new byte[]{device.getId(), TEMPERATURE_ON_COMMAND});
+    public void switchTemperatureSinkOn(Peer2PeerDemoConfiguration.DeviceID device, byte mode){
+        writeData(new byte[]{device.getId(), TEMPERATURE_ON_COMMAND, mode});
     }
 }

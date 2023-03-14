@@ -109,7 +109,7 @@ public class LedButtonControlFragment extends RssiDemoFragment {
     private TextView mVibrateSinkText;
     private ToggleButton mTemperatureSinkEnableToggleButton;
     private TextView mTemperatureSinkText;
-
+    private Switch mTemperatureSinkModeSwitch;
     private FeatureSwitchStatus mButtonFeature;
     private FeatureControlLed mLedControlFeature;
 
@@ -265,6 +265,10 @@ public class LedButtonControlFragment extends RssiDemoFragment {
             changeVoltageSinkEnable(checked);
         });
         mVoltageSinkModeSwitch = root.findViewById(R.id.voltageswitchMode);
+        mVoltageSinkModeSwitch.setOnClickListener(v -> {
+            boolean checked = ((Switch) v).isChecked();
+            changeVoltageMode(checked);
+        });
         mVoltageSinkModeSwitch.setEnabled(false);
         mVoltageSinkText = root.findViewById(R.id.textvoltageView);
         mVoltageSinkText.setEnabled(false);
@@ -284,6 +288,12 @@ public class LedButtonControlFragment extends RssiDemoFragment {
         });
         mTemperatureSinkText = root.findViewById(R.id.textTemperatureView);
         mTemperatureSinkText.setEnabled(false);
+        mTemperatureSinkModeSwitch = root.findViewById(R.id.switchWireNumber);
+        mTemperatureSinkModeSwitch.setOnClickListener(v -> {
+            boolean checked = ((Switch) v).isChecked();
+            changeWireMode(checked);
+        });
+        mTemperatureSinkModeSwitch.setEnabled(false);
 
         if(savedInstanceState!=null &&
                 savedInstanceState.containsKey(DEVICE_ID_KEY)){
@@ -338,6 +348,15 @@ public class LedButtonControlFragment extends RssiDemoFragment {
             mLedControlFeature.switchCurrentSourceOff(mCurrentDevice);
         }
     }
+    private void changeVoltageMode(boolean mode)
+    {
+        mLedControlFeature.switchVoltageSinkOn(mCurrentDevice,
+                (byte) (mode ? 0x01 : 0x00));
+    }
+    private void changeWireMode(boolean mode)
+    {
+        mLedControlFeature.switchTemperatureSinkOn(mCurrentDevice, (byte) (mode ? 0x01 : 0x00));
+    }
     private void changeCurrentSourceMode(int index)
     {
         String text = mCurrentSourceInputText.getText().toString();
@@ -377,9 +396,12 @@ public class LedButtonControlFragment extends RssiDemoFragment {
     {
         if (newState) {
             mVoltageSinkText.setEnabled(true);
-            mLedControlFeature.switchVoltageSinkOn(mCurrentDevice);
+            mVoltageSinkModeSwitch.setEnabled(true);
+            mLedControlFeature.switchVoltageSinkOn(mCurrentDevice,
+                    (byte) (mVoltageSinkModeSwitch.isChecked() ? 0x01 : 0x00));
         } else {
             mVoltageSinkText.setEnabled(false);
+            mVoltageSinkModeSwitch.setEnabled(false);
             mLedControlFeature.switchVoltageSinkOff(mCurrentDevice);
         }
     }
@@ -397,9 +419,12 @@ public class LedButtonControlFragment extends RssiDemoFragment {
     {
         if (newState) {
             mTemperatureSinkText.setEnabled(true);
-            mLedControlFeature.switchTemperatureSinkOn(mCurrentDevice);
+            mTemperatureSinkModeSwitch.setEnabled(true);
+            mLedControlFeature.switchTemperatureSinkOn(mCurrentDevice,
+                    (byte) (mTemperatureSinkModeSwitch.isChecked() ? 0x01 : 0x00));
         } else {
             mTemperatureSinkText.setEnabled(false);
+            mTemperatureSinkModeSwitch.setEnabled(false);
             mLedControlFeature.switchTemperatureSinkOff(mCurrentDevice);
         }
 
