@@ -127,13 +127,33 @@ public class LedButtonControlFragment extends RssiDemoFragment {
                 updateGui(()-> showDeviceDetected(mCurrentDevice));
             }
 
-            final String eventDate = ALARM_FORMATTER.format(new Date(sample.notificationTime));
-            int isSelected = FeatureSwitchStatus.isSwitchOn(sample) ? 1 : 0;
-            float current_val = sample.data[2].floatValue();
-
             updateGui(() -> {
+                final String eventDate = ALARM_FORMATTER.format(new Date(sample.notificationTime));
+                int isSelected = FeatureSwitchStatus.isSwitchOn(sample) ? 1 : 0;
+                float v = sample.data[2].floatValue();
+//TODO: Classify 
+                if (mCurrentSinkEnableToggleButton.isChecked())
+                {
+                    mCurrentSinkText.setText(getString(R.string.stm32wb_currentFormat, v));
+                }
+                else if (mTemperatureSinkEnableToggleButton.isChecked())
+                {
+                    mTemperatureSinkText.setText(getString(R.string.stm32wb_temperatureFormat, v));
+                }
+                else if (mVibrateSinkEnableToggleButton.isChecked())
+                {
+                    mVibrateSinkText.setText(getString(R.string.stm32wb_temperatureFormat, v));
+                }
+                else if (mVoltageSinkEnableToggleButton.isChecked())
+                {
+                    mVoltageSinkText.setText(getString(R.string.stm32wb_temperatureFormat, v));
+                }
+                else
+                {
+
+                }
+
                 mAlarmText.setText(getString(R.string.stm32wb_single_eventFormat,eventDate, isSelected));
-                mCurrentSinkText.setText(getString(R.string.stm32wb_currentFormat, current_val));
                 animateAlarmColor();
             });
         }//on update
@@ -291,6 +311,14 @@ public class LedButtonControlFragment extends RssiDemoFragment {
         mTemperatureSinkModeSwitch = root.findViewById(R.id.switchWireNumber);
         mTemperatureSinkModeSwitch.setOnClickListener(v -> {
             boolean checked = ((Switch) v).isChecked();
+            if (checked)
+            {
+                mTemperatureSinkModeSwitch.setText("3 wire mode");
+            }
+            else
+            {
+                mTemperatureSinkModeSwitch.setText("2/4 wire mode");
+            }
             changeWireMode(checked);
         });
         mTemperatureSinkModeSwitch.setEnabled(false);

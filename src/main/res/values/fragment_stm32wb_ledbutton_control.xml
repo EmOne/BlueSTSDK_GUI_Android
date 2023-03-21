@@ -3,6 +3,8 @@
 
     <string name="stm32wb_rssiFormat">%d [dBm]</string>
 	<string name="stm32wb_currentFormat">Current sink: %.3f [mA]</string>
+    <string name="stm32wb_temperatureFormat">Temperature: %.1f [°C]</string>
+    <string name="stm32wb_voltageratioFormat">Voltage: %.1f [mV/V]</string>
     <string name="stm32wb_deviceNameFormat">Device Server %d</string>
     <string name="stm32wb_single_switchRadio">Switch Protocol radio</string>
     <string name="stm32wb_single_eventFormat">Event received: %s { %d }</string>
@@ -20,11 +22,10 @@
     <integer name="stm32wb_single_alarmBlinkDuration">500</integer>
     <string name="stm32wb_voltage_sink_text">Voltage sink:</string>
     <string name="stm32wb_voltageFormat">Vol: %.3f [V]</string>
-    <string name="stm32wb_ratiometric_sink_text">Ratio metric:</string>
+    <string name="stm32wb_ratiometric_sink_text">Ratio metric:</string>./
     <string name="stm32wb_millivoltFormat">Value: %.3f [mV/V]</string>
     <string name="stm32wb_digital_sink_text">Digital input:</string>
     <string name="stm32wb_vibrating_sink_text">Vibrating:</string>
     <string name="stm32wb_vibratingFormat">Value: %.2f [Hz]</string>
     <string name="stm32wb_temperature_sink_text">PT100/NTC:</string>
-    <string name="stm32wb_temperatureFormat">Value: %.2f [°C]</string>
 </resources>

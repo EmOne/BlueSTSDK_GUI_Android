@@ -324,7 +324,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:enabled="false"
-        android:text="@string/stm32wb_temperatureFormat"
+        android:text="Temperature: 25 [°C]"
         app:layout_constraintBottom_toBottomOf="@+id/toggleTemperatureButton"
         app:layout_constraintStart_toEndOf="@+id/toggleTemperatureButton"
         app:layout_constraintTop_toTopOf="@+id/toggleTemperatureButton" />
@@ -392,10 +392,11 @@
 
     <Switch
         android:id="@+id/switchWireNumber"
-        android:layout_width="128dp"
-        android:layout_height="38dp"
-        android:enabled="false"
-        android:text="3/2,4 wire"
+        android:layout_width="160dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="8dp"
+        android:enabled="true"
+        android:text="2/4 wire mode"
         app:layout_constraintBottom_toBottomOf="@+id/toggleTemperatureButton"
         app:layout_constraintStart_toEndOf="@+id/textTemperatureView"
         app:layout_constraintTop_toTopOf="@+id/toggleTemperatureButton" />
