@@ -278,7 +278,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:enabled="false"
-        android:text="@string/stm32wb_millivoltFormat"
+        android:text="V: 0.00 [mV/V]"
         app:layout_constraintBottom_toBottomOf="@+id/voltageswitchMode"
         app:layout_constraintStart_toEndOf="@+id/voltageswitchMode"
         app:layout_constraintTop_toTopOf="@+id/voltageswitchMode" />
@@ -297,7 +297,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:enabled="false"
-        android:text="@string/stm32wb_vibratingFormat"
+        android:text="Intensity: 0.00"
         app:layout_constraintBottom_toBottomOf="@+id/toggleVibrateButton"
         app:layout_constraintStart_toEndOf="@+id/toggleVibrateButton"
         app:layout_constraintTop_toTopOf="@+id/toggleVibrateButton" />

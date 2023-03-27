@@ -136,8 +136,8 @@ public class FeatureSwitchStatus extends DeviceTimestampFeature {
 
         byte deviceId = data[dataOffset];
         byte buttonStatus = data[dataOffset+1];
-        float current_val = ((ByteBuffer.wrap(data,dataOffset+2, 2).order(ByteOrder.LITTLE_ENDIAN).getShort()) / 100.0f);
-        byte current_lvl = data[dataOffset+4];
+        float current_val = ((ByteBuffer.wrap(data,dataOffset+2, 4).order(ByteOrder.LITTLE_ENDIAN).getFloat()) / 100.0f);
+        byte current_lvl = data[dataOffset+6];
 
         Sample temp = new Sample(new Number[]{deviceId,buttonStatus, current_val, current_lvl },getFieldsDesc());
         return new ExtractResult(temp,2);

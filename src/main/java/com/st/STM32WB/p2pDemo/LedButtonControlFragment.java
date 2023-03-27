@@ -142,11 +142,11 @@ public class LedButtonControlFragment extends RssiDemoFragment {
                 }
                 else if (mVibrateSinkEnableToggleButton.isChecked())
                 {
-                    mVibrateSinkText.setText(getString(R.string.stm32wb_temperatureFormat, v));
+                    mVibrateSinkText.setText(getString(R.string.stm32wb_vibratingFormat, v));
                 }
                 else if (mVoltageSinkEnableToggleButton.isChecked())
                 {
-                    mVoltageSinkText.setText(getString(R.string.stm32wb_temperatureFormat, v));
+                    mVoltageSinkText.setText(getString(R.string.stm32wb_voltageratioFormat, v));
                 }
                 else
                 {
