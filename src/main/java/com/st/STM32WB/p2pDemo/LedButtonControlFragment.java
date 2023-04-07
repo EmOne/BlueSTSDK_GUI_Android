@@ -82,26 +82,20 @@ public class LedButtonControlFragment extends RssiDemoFragment {
     private static final String ALARM_STATUS_KEY = LedButtonControlFragment.class.getName()+".ALARM_STATUS_KEY";
     private static final String ALARM_TEXT_KEY = LedButtonControlFragment.class.getName()+".ALARM_TEXT_KEY";
     private static final SimpleDateFormat ALARM_FORMATTER = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
-
     private TextView mDeviceName;
     private TextView mInstructionText;
     private ImageView mLedImage;
-
     private boolean mLedStatus=false;
-
     private Group mAlarmViewGroup;
     private Group mLedViewGroup;
     private TextView mAlarmText;
     private ImageView mAlarmImage;
-
     private ToggleButton mCurrentSourceEnableToggleButton;
     private EditText mCurrentSourceInputText;
     private RadioGroup mCurrentModeRadioGroup;
     private RadioButton mCurrentModeSingleRadioButton,  mCurrentModeRampRadioButton, mCurrentModeStepRadioButton;
-
     private ToggleButton mCurrentSinkEnableToggleButton;
     private TextView mCurrentSinkText;
-
     private ToggleButton mVoltageSinkEnableToggleButton;
     private Switch mVoltageSinkModeSwitch;
     private TextView mVoltageSinkText;
@@ -112,9 +106,7 @@ public class LedButtonControlFragment extends RssiDemoFragment {
     private Switch mTemperatureSinkModeSwitch;
     private FeatureSwitchStatus mButtonFeature;
     private FeatureControlLed mLedControlFeature;
-
     private Peer2PeerDemoConfiguration.DeviceID mCurrentDevice;
-
 
     //we cant initialize the listener here because we need to wait that the fragment is attached
     // to an activity
@@ -146,7 +138,11 @@ public class LedButtonControlFragment extends RssiDemoFragment {
                 }
                 else if (mVoltageSinkEnableToggleButton.isChecked())
                 {
-                    mVoltageSinkText.setText(getString(R.string.stm32wb_voltageratioFormat, v));
+                    if(mVoltageSinkModeSwitch.isChecked()) {
+                        mVoltageSinkText.setText(getString(R.string.stm32wb_voltageratioFormat, v));
+                    } else {
+                        mVoltageSinkText.setText(getString(R.string.stm32wb_voltageFormat, v));
+                    }
                 }
                 else
                 {
